@@ -9,11 +9,16 @@ public class BallControl : MonoBehaviour
     // Randomly select direction to move next ball
     void BallStart()
     {
+        // if ball is already in motion, ignore
         float rand = Random.Range(0, 2);
-        if (rand < 1)
-            rb2d.AddForce(new Vector2(20, -15));
-        else
-            rb2d.AddForce(new Vector2(-20, -15));
+
+        if (rb2d.velocity == Vector2.zero)
+        {
+            if (rand < 1)
+                rb2d.AddForce(new Vector2(20, -15));
+            else
+                rb2d.AddForce(new Vector2(-20, -15));
+        }
     }
 
     // Reset Ball at (0,0)
@@ -38,6 +43,10 @@ public class BallControl : MonoBehaviour
             vel.x = rb2d.velocity.x;
             vel.y = (rb2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
             rb2d.velocity = vel;
+
+            // play audio
+            AudioSource audio = coll.gameObject.GetComponent<AudioSource>();
+            audio.Play(0);
         }
     }
 
@@ -51,6 +60,5 @@ public class BallControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
 
         if (GUI.Button(new Rect(Screen.width / 2 - 60, 35, 120, 53), "RESTART"))
         {
-            
             Score1 = 0;
             Score2 = 0;
             theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
